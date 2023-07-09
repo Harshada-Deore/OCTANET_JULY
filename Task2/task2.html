@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: linear-gradient(to right, #4a148c, #ea80fc);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 400px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a148c;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 2px solid #4a148c;
+      outline: none;
+      background-color: transparent;
+      color: #4a148c;
+      font-size: 16px;
+    }
+
+    input[type="text"]::placeholder {
+      color: #aaa;
+    }
+
+    .task-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .task-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      color: #4a148c;
+    }
+
+    .task-list li .task-text {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    .task-list li button {
+      background-color: #4a148c;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .task-list li button:hover {
+      background-color: #7500a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <ul class="task-list" id="taskList"></ul>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    taskInput.addEventListener('keydown', function(event) {
+      if (event.key === "Enter") {
+        addTask();
+      }
+    });
+
+    function addTask() {
+      const task = taskInput.value.trim();
+
+      if (task !== '') {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="task-text">${task}</span>
+          <button class="delete-button">Delete</button>
+        `;
+
+        const deleteButton = li.querySelector('.delete-button');
+        deleteButton.addEventListener('click', function() {
+          li.remove();
+        });
+
+        taskList.appendChild(li);
+        taskInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
